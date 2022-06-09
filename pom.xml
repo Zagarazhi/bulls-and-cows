@@ -25,6 +25,7 @@
     <javax.validation.version>2.0.1.Final</javax.validation.version>
     <hibernate-validator.version>7.0.4.Final</hibernate-validator.version>
     <jackson-core.version>2.13.3</jackson-core.version>
+	<commons-beanutils.version>1.9.4</commons-beanutils.version>
   </properties>
 
   <dependencies>
@@ -78,6 +79,11 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate-validator.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons-beanutils.version}</version>
 		</dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
