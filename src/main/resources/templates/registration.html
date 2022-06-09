@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    <!-- Style -->
+    <title>Регистрация</title>
+</head>
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+        <a class="navbar-brand font-monospace" href="#">Быки и коровы</a>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Войти</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<body class="text-center">
+    <main class="form-signin">
+        <form  modelAttribute="userForm" method="post">
+            <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+            <div class="form-floating">
+                <input type="text" id="username" name="username" class="form-control" placeholder="Логин"/>
+            </div>
+            <div class="form-floating">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Пароль"/>
+            </div>
+            <div class="form-floating">
+                <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control" placeholder="Пароль еще раз"/>
+            </div>
+            <input type="submit" value="Зарегистироваться" class="w-100 btn btn-lg btn-primary my-4"/>
+        </form>
+    </main>
+</body>
+</html>
