@@ -11,6 +11,6 @@ import ru.zagarazhi.entities.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
-    Optional<User> findByUserName(String username);
-    Page<User> findAllOrderByRating(Pageable pageable);
+    Optional<User> findByUsername(String username);
+    //Page<User> findAllOrderByRating(Pageable pageable);
 }
