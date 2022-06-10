@@ -9,5 +9,5 @@ import ru.zagarazhi.entities.Game;
 
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long>{
-    Page<Game> findAllByUser_id(Long user_id, Pageable pageable);
+    Page<Game> findByUser_id(Long user_id, Pageable pageable);
 }

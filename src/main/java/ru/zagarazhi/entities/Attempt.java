@@ -13,10 +13,13 @@ public class Attempt {
     @Column(name = "attempt_id")
     private Long id;
 
-    private Short answear;
+    @Column(length = 4, nullable = false)
+    private String answear;
 
+    @Column(nullable = false)
     private Long time;
 
+    @Column(nullable = false)
     private boolean success;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})

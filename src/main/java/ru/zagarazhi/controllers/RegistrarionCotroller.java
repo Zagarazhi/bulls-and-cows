@@ -39,7 +39,7 @@ public class RegistrarionCotroller {
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
             return "registration";
         }
-        return "redirect:/h2-console";
+        return "redirect:/game";
     }
 
 }

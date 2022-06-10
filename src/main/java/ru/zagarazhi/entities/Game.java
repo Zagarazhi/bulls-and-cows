@@ -16,11 +16,14 @@ public class Game {
     @Column(name = "game_id")
     private Long id;
 
-    @Column(name = "hidden_number", nullable = false)
-    private Short hiddenNumber;
+    @Column(length = 4, name = "hidden_number", nullable = false)
+    private String hiddenNumber;
 
     @Column(name = "start_time", nullable = false)
     private LocalDateTime startTime;
+
+    @Column(name = "was_attempts_constraint", nullable = false)
+    private boolean wasAttemptsConstraint;
 
     @Column(name = "max_attempts")
     private Integer maxAttempts;
@@ -28,11 +31,17 @@ public class Game {
     @Column(name = "real_attempts")
     private Integer realAttempts;
 
+    @Column(name = "was_time_constraint", nullable = false)
+    private boolean wasTimeConstraint;
+
     @Column(name = "max_time")
     private Long maxTime;
 
     @Column(name = "real_time")
     private Long time;
+
+    @Column(nullable = false)
+    private boolean success;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "game")
     private List<Attempt> attempts;
