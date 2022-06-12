@@ -1,3 +1,65 @@
+let onGame = false;
+let goal = [];
+let move = 0;
+let gameObj = {};
+let time = 0;
+let startTime;
+let lastTimeInSeconds = 0;
+let wasAttemptsConstraint = false;
+let wasTimeConstraint = false;
+let success = false;
+let maxAttempts = 0;
+let maxTime = 0;
+let attempts = [];
+let out = false;
+
+function start() {
+    out = false;
+    onGame = true;
+    gameObj = {};
+    success = false;
+    goal = generateNum();
+    move = 0;
+    let currentDatetime = new Date();
+    lastTimeInSeconds = currentDatetime.getTime() / 1000;
+    startTime = currentDatetime.getFullYear() + "-" 
+        + addLeadingZeros(currentDatetime.getMonth() + 1) + "-" 
+        + addLeadingZeros(currentDatetime.getDate()) + " " 
+        + addLeadingZeros(currentDatetime.getHours()) + ":" 
+        + addLeadingZeros(currentDatetime.getMinutes()) + ":" 
+        + addLeadingZeros(currentDatetime.getSeconds());
+    wasTimeConstraint = document.getElementById("isTime").checked;
+    wasAttemptsConstraint = document.getElementById("isAttempts").checked;
+    if(wasTimeConstraint) {
+        maxTime = parseInt(document.getElementById("timer").value);
+        time = maxTime;
+        timer();
+    } else {
+        maxTime = 0;
+        time = maxTime;
+    }
+    if(wasAttemptsConstraint) {
+        maxAttempts = parseInt(document.getElementById("ats").value);
+        if(isNaN(maxAttempts)){
+            maxAttempts = 15;
+        }
+        ats();
+    } else {
+        maxAttempts = 0;
+    }
+    let btn = document.getElementById("startButton");
+    btn.innerHTML = 'сброс';
+    btn.onclick = function() { stop(); };
+}
+
+function stop(){
+    out = true;
+    saveGame();
+    let btn = document.getElementById("startButton");
+    btn.innerHTML = 'старт';
+    btn.onclick = function() { start(); };
+}
+
 function generateNum() {
     let number = [];
     while (number.length < 4){
@@ -9,75 +71,83 @@ function generateNum() {
     console.log(number);
     return number;
 }
-let goal = generateNum();
-let move=0;
 
 function game() {
-    var number = document.getElementById("code").value;
-    if(!isNaN(parseInt(number))){
-        check(number);
+    if(onGame){
+        var number = document.getElementById("code").value;
+        if(!isNaN(parseInt(number))){
+            check(number);
+        }
     }
+    emptyCode();
 }
 
-//Проверка коров и быков
 function check(number) {
     let bulls = 0;
     let cows = 0;
-    for(let i = 0; i< 4; i++){
-        if(number[i]==goal[i])
+    for(let i = 0; i < 4; i++){
+        if(parseInt(number[i]) === goal[i])
             bulls++;
-        else if(goal.indexOf(number[i]) >= 0)cows++;
+        else if (goal.indexOf(parseInt(number[i])) >= 0) cows++;
     }
-    writeTurn(number, bulls, cows);
-    console.log(goal);
-    console.log('b '+bulls);
-    console.log('c '+cows);
+    let currentDatetime = new Date();
+    let diff = Math.floor(currentDatetime.getTime() / 1000 - lastTimeInSeconds);
+    lastTimeInSeconds = currentDatetime.getTime() / 1000;
+    attempts.push({
+        answear: '' + number,
+        time: diff,
+        success: bulls === 4,
+    })
+    writeTurn(number, bulls, cows, diff);
+    ats();
 }
 
 function saveGame() {
-    let j={
-        hiddenNumber: '5678',
-        startTime: '2015-02-12 13:51:34',
-        wasAttemptsConstraint: false,
-        wasTimeConstraint: false,
-        success: true,
-        attempts: [
-            {
-                answear: '1234',
-                time: 40,
-                success: false,
-            },
-            {
-                answear: '4321',
-                time: 45,
-                success: false,
-            },
-            {
-                answear: '5678',
-                time: 30,
-                success: true,
-            }
-        ]
-    };
+    if(wasTimeConstraint && time <= 0){
+        success = false;
+    }
+    if(wasAttemptsConstraint && move > maxAttempts){
+        success = false;
+    }
+    gameObj.hiddenNumber = goal.join('');
+    gameObj.startTime = startTime;
+    gameObj.wasAttemptsConstraint = wasAttemptsConstraint;
+    gameObj.wasTimeConstraint = wasTimeConstraint;
+    gameObj.success = (out? false : success);
+    if(wasTimeConstraint) gameObj.maxTime = maxTime;
+    if(wasAttemptsConstraint) gameObj.maxAttempts = maxAttempts;
+    gameObj.attempts = attempts;
 
     //отправка json
     let xhr = new XMLHttpRequest();
-    let json = JSON.stringify(j);
+    let json = JSON.stringify(gameObj);
     xhr.open("POST", '/api/v1/save')
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(json);
+    onGame = false;
+    time = 0;
+    move = 0;
+    let btn = document.getElementById("startButton");
+    btn.innerHTML = 'старт';
+    btn.onclick = function() { start(); };
 }
 
-function writeTurn(number, bulls, cows) {
-    let table = document.querySelector('.turnsList');
+function writeTurn(number, bulls, cows, diff) {
+    let table = document.getElementById('history');
     let newLine = document.createElement('p');
     move++;
-    newLine.innerHTML = '<span class="guessed">' +move+'. '+number + ' быки: ' + bulls + '; коровы: ' + cows;
-    if(bulls==4) {
+    newLine.innerHTML = '<span class="guessed">' +move+'. '+number + ' быки: ' + bulls + '; коровы: ' + cows + '; за время: ' + diff;
+    if(bulls == 4) {
         saveGame(move,number);
-        newLine.innerHTML = 'Вы выиграли!!! Загаданное число: ' + number.toString().split(',').join('');
+        if(!out){
+            newLine.innerHTML = 'Вы выиграли!!! Загаданное число: ' + number;
+        } else {
+            newLine.innerHTML = 'Вы проиграли, не выполнив ограничения. Загаданное число: ' + number;
+        }
+        
     }
     table.appendChild(newLine);
+    newLine.scrollIntoView();
 }
 
 function clickPress(event) {
@@ -100,8 +170,14 @@ function emptyCode(){
     document.getElementById("code").focus();
 }
 
+function addLeadingZeros(n) {
+    if (n <= 9) {
+      return "0" + n;
+    }
+    return n
+  }
+
 function timer(){
-    var time = parseInt(document.getElementById("timer").value);
     if(isNaN(time) || time <= 0){
         time = 60;
     }
@@ -116,6 +192,15 @@ function timer(){
     }, 1000);
 }
 
-window.onload = function() {
+function ats(){
+    document.getElementById('attemptDsisplay').innerHTML='' + move + '/' + ((maxAttempts < 1)? '∞':maxAttempts);
+}
+
+function back(){
+    var code = document.getElementById("code").value;
+    if(code.length > 0){
+        code = code.slice(0, code.length - 1);
+    }
+    document.getElementById("code").value = code;
     document.getElementById("code").focus();
 }

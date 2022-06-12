@@ -29,7 +29,7 @@
                     <div class="row">
                         <input type="checkbox" id="isTime" name="isTime">
                         <label for="isTime">&nbsp;&nbsp;Ограничить время&nbsp;&nbsp;</label>
-                        <input type="number" id="timer" name="timer" value="65" min="1"/>
+                        <input type="number" id="timer" name="timer" value="" min="1"/>
                     </div>
                     <br/>
                     <div class="row">
@@ -45,11 +45,11 @@
                     <div class="col">
                         <div class="row">
                             <p>Осталось времени:&nbsp;&nbsp;</p>
-                            <p id="safeTimerDisplay">00:30</p>
+                            <p id="safeTimerDisplay">00:00</p>
                         </div>
                         <div class="row">
                             <p>Попыток:&nbsp;&nbsp;</p>
-                            <p id="attemptDsisplay">0/1</p>
+                            <p id="attemptDsisplay">0/∞</p>
                         </div>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                             <tr>
                                 <td class="border" onclick="emptyCode()">C</td>
                                 <td class="border" onclick="addCode('0');">0</td>
-                                <td class="border" ></td>
+                                <td class="border" onclick="back();">←</td>
                             </tr>
                         </table>
                     </div>
@@ -85,8 +85,8 @@
             </div>
             <div class="col center-block text-center">
                 <h2 class="top-name center-block text-center">История ходов</h2>
-                <div class="table">
-                    <div class="turnsList"></div>
+                <div id="history" style="width: 600px; height: 300px; line-height: 3em; overflow-y:auto; padding: 5px;">
+
                 </div>
             </div>
         </div>
