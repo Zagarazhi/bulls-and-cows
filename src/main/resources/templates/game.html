@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">Навигация</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="#">Игра<span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="#">Таблица лидеров</a>
+        <a class="nav-item nav-link" href="#">Моя статистика</a>
+      </div>
+    </div>
+  </nav>
+<body>
+    <div class="container">
+        <div class="row m-1 p-1">
+            <div class="col">
+                <h2 class="top-name center-block text-center">Быки и коровы</h2>
+                <br/>
+                <div class="col">
+                    <div class="row">
+                        <input type="checkbox" id="isTime" name="isTime">
+                        <label for="isTime">&nbsp;&nbsp;Ограничить время&nbsp;&nbsp;</label>
+                        <input type="number" id="timer" name="timer" value="65" min="1"/>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <input type="checkbox" id="isAttempts" name="isAttempts">
+                        <label for="isAttempts">&nbsp;&nbsp;Ограничить попытки&nbsp;&nbsp;</label><br>
+                        <input type="number" id="ats" name="ats" value="" min="1"/>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div id="row">
+                    <button type="submit" class="btn btn-outline-primary" id="startButton" onclick="start();">НАЧАТЬ</button>
+                    <div class="col">
+                        <div class="row">
+                            <p>Осталось времени:&nbsp;&nbsp;</p>
+                            <p id="safeTimerDisplay">00:30</p>
+                        </div>
+                        <div class="row">
+                            <p>Попыток:&nbsp;&nbsp;</p>
+                            <p id="attemptDsisplay">0/1</p>
+                        </div>
+                    </div>
+                </div>
+                <label>Введите четырехзначное число</label>
+                <input type="text" id="code" name="code" value="" class="display" maxlength="4" minlength="4" size="4" onkeypress="clickPress(event);"/>
+                <button type="submit" class="btn btn-outline-primary" id="button-addon2" onclick="game();">Ввод</button>
+                <div class="form-group column center-block text-center">
+                    <div class="center-block text-center">
+                        <table class="border" id="keypad" cellpadding="5" cellspacing="3">
+                            <tr>
+                                <td class="border" onclick="addCode('1');">1</td>
+                                <td class="border" onclick="addCode('2');">2</td>
+                                <td class="border" onclick="addCode('3');">3</td>
+                            </tr>
+                            <tr>
+                                <td class="border" onclick="addCode('4');">4</td>
+                                <td class="border" onclick="addCode('5');">5</td>
+                                <td class="border" onclick="addCode('6');">6</td>
+                            </tr>
+                            <tr>
+                                <td class="border" onclick="addCode('7');">7</td>
+                                <td class="border" onclick="addCode('8');">8</td>
+                                <td class="border" onclick="addCode('9');">9</td>
+                            </tr>
+                            <tr>
+                                <td class="border" onclick="emptyCode()">C</td>
+                                <td class="border" onclick="addCode('0');">0</td>
+                                <td class="border" ></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col center-block text-center">
+                <h2 class="top-name center-block text-center">История ходов</h2>
+                <div class="table">
+                    <div class="turnsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/resources/js/game.js"></script>
+</body>
+</html>
