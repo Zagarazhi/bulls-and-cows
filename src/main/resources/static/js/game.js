@@ -54,7 +54,7 @@ function start() {
 
 function stop(){
     out = true;
-    saveGame();
+    if(move > 0) saveGame();
     let btn = document.getElementById("startButton");
     btn.innerHTML = 'старт';
     btn.onclick = function() { start(); };
@@ -93,6 +93,7 @@ function check(number) {
     let currentDatetime = new Date();
     let diff = Math.floor(currentDatetime.getTime() / 1000 - lastTimeInSeconds);
     lastTimeInSeconds = currentDatetime.getTime() / 1000;
+    success = bulls === 4;
     attempts.push({
         answear: '' + number,
         time: diff,
@@ -113,7 +114,7 @@ function saveGame() {
     gameObj.startTime = startTime;
     gameObj.wasAttemptsConstraint = wasAttemptsConstraint;
     gameObj.wasTimeConstraint = wasTimeConstraint;
-    gameObj.success = (out? false : success);
+    gameObj.success = out? false : success;
     if(wasTimeConstraint) gameObj.maxTime = maxTime;
     if(wasAttemptsConstraint) gameObj.maxAttempts = maxAttempts;
     gameObj.attempts = attempts;
@@ -140,11 +141,10 @@ function writeTurn(number, bulls, cows, diff) {
     if(bulls == 4) {
         saveGame(move,number);
         if(!out){
-            newLine.innerHTML = 'Вы выиграли!!! Загаданное число: ' + number;
+            newLine.innerHTML += '<br/>Вы выиграли!!! Загаданное число: ' + number;
         } else {
-            newLine.innerHTML = 'Вы проиграли, не выполнив ограничения. Загаданное число: ' + number;
+            newLine.innerHTML += '<br/>Вы проиграли, не выполнив ограничения. Загаданное число: ' + number;
         }
-        
     }
     table.appendChild(newLine);
     newLine.scrollIntoView();
@@ -179,7 +179,8 @@ function addLeadingZeros(n) {
 
 function timer(){
     if(isNaN(time) || time <= 0){
-        time = 60;
+        maxTime = 60;
+        time = maxTime;
     }
     var timer = setInterval(function(){
         var minuts = Math.floor(time / 60);
