@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -15,6 +13,7 @@ import ru.zagarazhi.entities.Game;
 import ru.zagarazhi.entities.User;
 import ru.zagarazhi.entities.dto.AttemptDto;
 import ru.zagarazhi.entities.dto.GameDto;
+import ru.zagarazhi.entities.res.ResGame;
 import ru.zagarazhi.repositories.AttemptRepository;
 import ru.zagarazhi.repositories.GameRepository;
 import ru.zagarazhi.repositories.UserRepository;
@@ -28,10 +27,15 @@ public class GameService {
     @Autowired
     private UserRepository userRepository;
 
-    public Page<Game> findUserGames(Pageable pageable){
+    public List<ResGame> findUserGames(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName()).get();
-        return gameRepository.findByUser_id(user.getId(), pageable);
+        List<Game> games = gameRepository.findByUser_id(user.getId());
+        List<ResGame> ans = new ArrayList<>();
+        for(Game game : games){
+            ans.add(new ResGame(game));
+        }
+        return ans;
     }
 
     public boolean save(GameDto gameDto) {
@@ -66,6 +70,8 @@ public class GameService {
             game.setMaxTime(gameDto.getMaxTime());
         }
         user.getGames().add(game);
+        user.setRating(user.getRating() + (long)((1.0/(tempAttempts.length + 1) * 1.0/(time + 1) * 1000)));
+        userRepository.save(user);
         gameRepository.save(game);
         attemptRepository.saveAll(attempts);
         return true;

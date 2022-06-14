@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">Навигация</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="/game">Игра</a>
+        <a class="nav-item nav-link" href="#">Профиль<span class="sr-only">(current)</span></a>
+      </div>
+    </div>
+  </nav>
+<body>
+    <div class="container my-4">
+        <div class="row m-2 p-2">
+            <div class="col">
+                <h2 class="top-name center-block text-center">Правила игры:</h2>
+                <p  align="justify" class="font-georgia">
+                    Компьютер загадывает 4-х значное число. 
+                    Цифры загаданного числа не повторяются. 
+                    Задача пользователя угадать загаданное число. 
+                    У пользователя неограниченное число попыток. 
+                    В каждую попытку пользователь дает компьютеру свой вариант числа. 
+                    Компьютер сообщает сколько цифр точно угадано (бык) и сколько цифр угадано без учета позиции (корова). 
+                    По ответу компьютера пользователь должен за несколько ходов угадать число. 
+                    <br/>Пример:
+                    <br/>7328 -- загаданное число
+                    <br/>0819 -- 0Б1К
+                    <br/>4073 -- 0Б2К
+                    <br/>5820 -- 0Б1К
+                    <br/>3429 -- 1Б1К
+                    <br/>5960 -- 0Б0К
+                    <br/>7238 -- 2Б2К
+                    <br/>7328 -- 4Б0К (число угадано)
+                </p>
+            </div>
+            <div class="col" id="info">
+                <h2 class="top-name center-block text-center">Инфо</h2>
+                
+            </div>
+            <div class="col">
+                <div style="overflow: auto;">
+                    <h2 class="top-name center-block text-center">История ваших игр</h2>
+                    <table class="table table-striped" id="games">
+                        <thead class="thead">
+                        <tr>
+                            <th scope="col">Скрытое число</th>
+                            <th scope="col">Число попыток</th>
+                            <th scope="col">Время</th>
+                            <th scope="col">Время начала</th>
+                            <th scope="col">Ограничение на время</th>
+                            <th scope="col">Ограничение на время</th>
+                            <th scope="col">Ограничение на попытки</th>
+                            <th scope="col">Ограничение на попытки</th>
+                            <th scope="col">Число найдено</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </div>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="/resources/js/profile.js"></script>
+</body>
+</html>

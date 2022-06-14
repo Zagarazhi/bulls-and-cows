@@ -1,11 +1,15 @@
 package ru.zagarazhi.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,6 +29,15 @@ public class UserService implements UserDetailsService{
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    public List<String> find(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(auth.getName()).get();
+        List<String> ans = new ArrayList<>();
+        ans.add(user.getUsername());
+        ans.add(Long.toString(user.getRating()));
+        return ans;
     }
 
     public Optional<User> findByUsername(String username) {
@@ -55,7 +68,7 @@ public class UserService implements UserDetailsService{
         return org.springframework.security.core.userdetails.User
                             .withUsername(userEntity.getUsername())
                             .password(userEntity.getPassword())
-                            .authorities("ROLE_USER") //Все зарегистрированные пользователи имею роль юзера
+                            .authorities("ROLE_USER") //Все зарегистрированные пользователи имеют роль юзера
                             .build();
     }
 }

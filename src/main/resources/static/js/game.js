@@ -17,6 +17,7 @@ function start() {
     out = false;
     onGame = true;
     gameObj = {};
+    attempts = [];
     success = false;
     goal = generateNum();
     move = 0;
