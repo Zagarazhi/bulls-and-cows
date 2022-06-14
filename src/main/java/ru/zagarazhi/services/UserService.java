@@ -20,6 +20,7 @@ import ru.zagarazhi.entities.User;
 import ru.zagarazhi.entities.dto.UserRegistrationDto;
 import ru.zagarazhi.repositories.UserRepository;
 
+//Сервси, обеспечивающий работу с пользователями
 @Service
 public class UserService implements UserDetailsService{
 

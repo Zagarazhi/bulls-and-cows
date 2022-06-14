@@ -18,6 +18,7 @@ import ru.zagarazhi.repositories.AttemptRepository;
 import ru.zagarazhi.repositories.GameRepository;
 import ru.zagarazhi.repositories.UserRepository;
 
+//Серсис, обеспечивающие запись и чтение данных об играх
 @Service
 public class GameService {
     @Autowired
@@ -38,6 +39,7 @@ public class GameService {
         return ans;
     }
 
+    //Запись игры со всеми попытками
     public boolean save(GameDto gameDto) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName()).get();
