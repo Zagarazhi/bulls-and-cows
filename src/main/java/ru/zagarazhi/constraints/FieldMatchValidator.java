@@ -5,7 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-
+//Валидатор совпадения паролей
 public class FieldMatchValidator implements ConstraintValidator < FieldMatch, Object > {
 
     private String firstFieldName;
