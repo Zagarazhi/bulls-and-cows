@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import ru.zagarazhi.entities.User;
 
+//Обращение к базе данных пользователей
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
     Optional<User> findByUsername(String username);

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import ru.zagarazhi.entities.Attempt;
 
+//Обращение к базе данных попыток. Не использовал
 @Repository
 public interface AttemptRepository extends JpaRepository<Attempt, Long>{
     List<Attempt> findAllByGame_id(Long game_id);

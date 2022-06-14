@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import ru.zagarazhi.entities.Game;
 
+//Обращение к базе данных игр
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long>{
     List<Game> findByUser_id(Long user_id);
