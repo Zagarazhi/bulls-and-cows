@@ -17,6 +17,7 @@ import ru.zagarazhi.entities.res.ResGame;
 import ru.zagarazhi.services.GameService;
 import ru.zagarazhi.services.UserService;
 
+//Рест-контроллер для работы с информацией об играх
 @RestController
 @RequestMapping("api/v1")
 public class GameController {

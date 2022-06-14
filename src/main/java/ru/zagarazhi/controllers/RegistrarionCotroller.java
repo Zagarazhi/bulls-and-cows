@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.zagarazhi.entities.dto.UserRegistrationDto;
 import ru.zagarazhi.services.UserService;
 
+//Контроллер регистрации
 @Controller
 @RequestMapping("/registration")
 public class RegistrarionCotroller {
