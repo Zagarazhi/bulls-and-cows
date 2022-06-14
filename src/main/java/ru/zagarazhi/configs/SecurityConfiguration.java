@@ -12,6 +12,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import ru.zagarazhi.services.UserService;
 
+//Конфигурационный класс безопасности. Блокирует доступ незарегистрированным пользователям и обеспечивает регистрацию
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
@@ -44,8 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
             .logoutSuccessUrl("/login?logout")
             .permitAll();
+            //Необходимо для кончоли H2
             http.csrf().disable();
-            http.headers().frameOptions().disable();;
+            http.headers().frameOptions().disable(); 
     }
 
     @Bean
