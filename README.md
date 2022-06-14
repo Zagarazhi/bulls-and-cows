@@ -18,12 +18,12 @@
 - При каждом запуске БД создается заново
 
 # Используемые технологии:
-- 1)
- - - Java 17
- - - Spring Boot 2.7.0
- - - Javax Validation 2.0.1.Final
- - - Hibernate Validator 7.0.4.Final
- - - Jackson 2.13.3
-- 2) БД H2
-- 3) Обмен между фронтом и бэком ведется через JSON формат. 
-- 4) Фронт: HTML + JS + bootstrap.
+1)
+ - Java 17
+ - Spring Boot 2.7.0
+ - Javax Validation 2.0.1.Final
+ - Hibernate Validator 7.0.4.Final
+ - Jackson 2.13.3
+2) БД H2
+3) Обмен между фронтом и бэком ведется через JSON формат. 
+4) Фронт: HTML + JS + bootstrap.
