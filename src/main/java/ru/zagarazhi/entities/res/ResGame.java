@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 import ru.zagarazhi.entities.Game;
 
+//Сущность, необходимая для отображения данных об игре в профиле
 @Data
 public class ResGame {
     private String hiddenNumber;

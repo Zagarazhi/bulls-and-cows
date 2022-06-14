@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import lombok.Data;
 
+//Сущность, представляющая попытку
 @Entity
 @Data
 @Table(name = "attempts")

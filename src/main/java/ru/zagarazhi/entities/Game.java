@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import lombok.Data;
 
+//Сущность, представляющая данные игры
 @Entity
 @Data
 @Table(name = "games")

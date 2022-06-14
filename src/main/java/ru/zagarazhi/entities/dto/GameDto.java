@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
+//Сущность для записи игры
 @Data
 public class GameDto {
     @NotEmpty

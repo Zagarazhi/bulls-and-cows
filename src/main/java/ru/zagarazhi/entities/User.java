@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import lombok.Data;
 
+//Сущность, представляющая пользователя
 @Entity
 @Data
 @Table(name = "users")

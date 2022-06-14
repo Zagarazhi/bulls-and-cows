@@ -4,6 +4,7 @@ import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
 
+//Сущность для записи попытки
 @Data
 public class AttemptDto {
     @NotEmpty
