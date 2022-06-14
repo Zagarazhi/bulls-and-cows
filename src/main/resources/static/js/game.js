@@ -1,3 +1,4 @@
+//Переменные состояния игры
 let onGame = false;
 let goal = [];
 let move = 0;
@@ -13,6 +14,7 @@ let maxTime = 0;
 let attempts = [];
 let out = false;
 
+//Обновленние переменных перед стартом и разблокировка ввода
 function start() {
     out = false;
     onGame = true;
@@ -53,6 +55,7 @@ function start() {
     btn.onclick = function() { stop(); };
 }
 
+//Остановка игры
 function stop(){
     out = true;
     if(move > 0) saveGame();
@@ -61,6 +64,7 @@ function stop(){
     btn.onclick = function() { start(); };
 }
 
+//Генерация четырхзначного числа с разными цифрами
 function generateNum() {
     let number = [];
     while (number.length < 4){
@@ -73,6 +77,7 @@ function generateNum() {
     return number;
 }
 
+//Проверка введенного числа и очистка поля
 function game() {
     if(onGame){
         var number = document.getElementById("code").value;
@@ -83,6 +88,7 @@ function game() {
     emptyCode();
 }
 
+//Проверка числа
 function check(number) {
     let bulls = 0;
     let cows = 0;
@@ -104,6 +110,7 @@ function check(number) {
     ats();
 }
 
+//Запись игры в базу данных
 function saveGame() {
     if(wasTimeConstraint && time <= 0){
         success = false;
@@ -134,6 +141,7 @@ function saveGame() {
     btn.onclick = function() { start(); };
 }
 
+//Запись хода на страницу
 function writeTurn(number, bulls, cows, diff) {
     let table = document.getElementById('history');
     let newLine = document.createElement('p');
@@ -151,12 +159,14 @@ function writeTurn(number, bulls, cows, diff) {
     newLine.scrollIntoView();
 }
 
+//Проверка нажатия ENTER на поле
 function clickPress(event) {
     if (event.keyCode == 13) {
         game();
     }
 }
 
+//Добавление числа с помощью виртуальной клавиатуры
 function addCode(key){
 	var code = document.getElementById("code").value;
     if(code.length < 4){
@@ -166,11 +176,13 @@ function addCode(key){
     document.getElementById("code").focus();
 }
 
+//Очистка поля
 function emptyCode(){
 	document.getElementById("code").value = "";
     document.getElementById("code").focus();
 }
 
+//Добавление нулей ддя даты и времени
 function addLeadingZeros(n) {
     if (n <= 9) {
       return "0" + n;
@@ -178,6 +190,7 @@ function addLeadingZeros(n) {
     return n
   }
 
+//Таймер
 function timer(){
     if(isNaN(time) || time <= 0){
         maxTime = 60;
@@ -194,10 +207,12 @@ function timer(){
     }, 1000);
 }
 
+//Счетчик попыток
 function ats(){
     document.getElementById('attemptDsisplay').innerHTML='' + move + '/' + ((maxAttempts < 1)? '∞':maxAttempts);
 }
 
+//Стирание последней цифры с помощью виртуальной клавиатуры
 function back(){
     var code = document.getElementById("code").value;
     if(code.length > 0){
